@@ -25,7 +25,7 @@ const CTA = () => {
         <div className="container grid grid-cols-12 mx-auto py-10 md:pb-20 lg:place-items-center">
           <div className="col-span-12 lg:col-span-6">
             <h2 className="text-white font-roboto font-bold text-2xl md:text-4xl md:text-center md:leading-normal lg:text-left">
-              Get our top Bookmarks delivered From us to your inbox weekly.
+              Get top Bookmarks delivered from us to your inbox weekly.
             </h2>
             <div className="w-full max-w-[494px] mt-12 space-y-3 mx-auto md:space-y-0 md:flex md:items-center md:space-x-2 lg:mx-0">
               <input

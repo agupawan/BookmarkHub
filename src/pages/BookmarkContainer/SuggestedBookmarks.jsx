@@ -1,4 +1,5 @@
 import React from 'react'
+import { images } from '../../constants';
 
 import { Link } from "react-router-dom";
 
@@ -11,9 +12,9 @@ const SuggestedBookmarks = ({ className, header, posts = []}) => {
       {header}
     </h2>
     <div className="grid gap-y-5 mt-5 md:grid-cols-2 md:gap-x-5 lg:grid-cols-1">
-      {posts.map((item) => (
+      {posts?.map((item) => (
         <Link
-        key={item._id}
+        key={item.id}
         to={item.path}
         >
         <div
@@ -21,7 +22,7 @@ const SuggestedBookmarks = ({ className, header, posts = []}) => {
         >
           <img
             className="aspect-square object-cover rounded-lg w-1/5"
-            src={item.image}
+            src={images.Post}
             alt="laptop"
           />
           <div className="text-sm font-roboto text-dark-hard font-medium">
@@ -40,19 +41,7 @@ const SuggestedBookmarks = ({ className, header, posts = []}) => {
         </Link>
       ))}
     </div>
-    {/* <h2 className="font-roboto font-medium text-dark-hard mt-8 md:text-xl">
-      Tags
-    </h2>
-    <div className="flex flex-wrap gap-x-2 gap-y-2 mt-4">
-      {tags.map((item) => (
-        <Link
-          to="/"
-          className="inline-block rounded-md px-3 py-1.5 bg-primary font-roboto text-xs text-white md:text-sm"
-        >
-          {item}
-        </Link>
-      ))}
-    </div> */}
+    
   </div>
   )
 }
