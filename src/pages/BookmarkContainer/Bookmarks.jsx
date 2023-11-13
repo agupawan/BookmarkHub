@@ -54,6 +54,7 @@ const Bookmarks = () => {
     const { isLoading, isError, isSuccess, data, error} = useGetBookmarksQuery(params.id);
     const postsData = data?.bookmarks;
     
+    
 
   
   return (
