@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const signup = async ({ name, email, password }) => {
   try {
     const { data } = await axios.post("http://localhost:2800/logins", {
@@ -82,6 +83,22 @@ export const updateProfilePicture = async ({ token, formData }) => {
       formData,
       config
     );
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message)
+      throw new Error(error.response.data.message);
+    throw new Error(error.message);
+  }
+};
+
+export const addBookmark = async ({ bookmarkName,link,category,bookmarkType }) => {
+  try {
+    const { data } = await axios.post("http://localhost:2800/bookmarks", {
+      bookmarkName,
+      link,
+      category,
+      bookmarkType
+    });
     return data;
   } catch (error) {
     if (error.response && error.response.data.message)

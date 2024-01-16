@@ -218,6 +218,21 @@
       "email": "teja@gmail.com",
       "password": "L@Vw34zEdQD.tt",
       "id": 20
+    },
+    {
+      "email": "pawan@realpage.com",
+      "password": "123456",
+      "id": 21
     }
+  ],
+  "bookmarks": [
+    {
+      "id": "1",
+      "bookmarkName": "",
+      "link": "",
+      "category": "",
+      "bookmarkType": ""
+    }
+    
   ]
 }
