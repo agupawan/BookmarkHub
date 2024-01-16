@@ -21,6 +21,7 @@ const LoginPage = () => {
     onSuccess: (data) => {
       dispatch(userActions.setUserInfo(data));
       localStorage.setItem("account", JSON.stringify(data));
+     toast.success("Successfully Logged in!");
     },
     onError: (error) => {
       toast.error(error.message);
