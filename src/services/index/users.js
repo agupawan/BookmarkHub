@@ -1,12 +1,14 @@
 import axios from "axios";
 
 
-export const signup = async ({ name, email, password }) => {
+export const signup = async ({ name, email, password, confirmPassword, phone }) => {
   try {
-    const { data } = await axios.post("http://localhost:2800/logins", {
+    const { data } = await axios.post("http://localhost:5000/api/v1/user/register", {
       name,
       email,
-      password
+      password,
+      confirmPassword,
+      phone
     });
     return data;
   } catch (error) {
@@ -18,7 +20,7 @@ export const signup = async ({ name, email, password }) => {
 
 export const login = async ({ email, password }) => {
   try {
-    const { data } = await axios.post("http://localhost:2800/logins", {
+    const { data } = await axios.post("http://localhost:5000/api/v1/user/login", {
       email,
       password,
     });

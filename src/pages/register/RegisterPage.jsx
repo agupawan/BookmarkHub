@@ -17,8 +17,8 @@ const RegisterPage = () => {
   const userState = useSelector((state) => state.user);
 
     const {mutate, isLoading} = useMutation({
-        mutationFn: ({name, email, password}) => {
-            return signup({name, email, password});
+        mutationFn: ({name, email, password, confirmPassword, phone}) => {
+            return signup({name, email, password, confirmPassword, phone});
         },
         onSuccess: (data) => {
             console.log(data);
@@ -48,13 +48,14 @@ const RegisterPage = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      phone: ""
     },
     mode: "onChange",
   });
 
   const submitHandler = (data) => {
-    const {name, email, password} = data;
-    mutate({name, email, password});
+    const {name, email, password, confirmPassword, phone} = data;
+    mutate({name, email, password, confirmPassword, phone});
   };
 
   const password = watch("password");
@@ -127,6 +128,37 @@ const RegisterPage = () => {
               {errors.email?.message && (
                 <p className="text-red-500 text-xs mt-1">
                   {errors.email?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col mb-6 w-full">
+            <label
+                htmlFor="phone"
+                className="text-[#5a7184] font-semibold block"
+              >
+                Phone number
+              </label>
+              <input
+                type="phone"
+                id="phone"
+                {...register("phone", {
+                  minLength: {
+                    value: 10,
+                    message: "Enter number",
+                  },
+                  required: {
+                    value: true,
+                    message: "Number is required",
+                  },
+                })}
+                placeholder="Enter contact"
+                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                  errors.phone ? "border-red-500" : "border-[#c3cad9]"
+                }`}
+              />
+              {errors.phone?.message && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.phone?.message}
                 </p>
               )}
             </div>

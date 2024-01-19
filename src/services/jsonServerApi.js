@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const jsonServerApi = createApi({
   reducerPath: 'jsonServerApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:2800/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/v1/bookmark' }),
   tagTypes: ["Posts"],
   endpoints: (builder) => ({
     getCategories: builder.query({
@@ -11,7 +11,7 @@ export const jsonServerApi = createApi({
     }),
 
     getBookmarks: builder.query({
-        query: (id) => `categories/${id}`,
+        query: (category) => `?category=${category}`,
     }),
   }),
 });

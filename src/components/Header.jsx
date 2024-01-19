@@ -35,7 +35,7 @@ const Header = () => {
         <div className="flex items-center">
         <div className="px-5">
         <button
-            className="items-center mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
+            className="flex items-center border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
             onClick={() => setAddBookmarkModal(true)}
           >
             <span>Add Bookmark</span>
@@ -48,7 +48,7 @@ const Header = () => {
               <div className="relative group">
                 <div className="flex flex-col items-center">
                   <button
-                    className="flex gap-x-1 items-center mt-5 lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
+                    className="flex gap-x-1 items-center my-auto lg:mt-0 border-2 border-blue-500 px-6 py-2 rounded-full text-blue-500 font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300"
                     onClick={() => setProfileDrowpdown(!profileDrowpdown)}
                   >
                     <span>Account</span>
@@ -57,20 +57,20 @@ const Header = () => {
                   <div
                     className={`${
                       profileDrowpdown ? "block" : "hidden"
-                    } lg:hidden transition-all duration-500 pt-4 lg:absolute lg:bottom-0 lg:right-0 lg:transform lg:translate-y-full lg:group-hover:block w-max`}
+                    } hidden transition-all duration-500 pt-4 absolute bottom-0 right-0 transform translate-y-full group-hover:block w-max`}
                   >
-                    <ul className="bg-dark-soft lg:bg-transparent text-center flex flex-col shadow-lg rounded-lg overflow-hidden">
+                    <ul className="bg-dark-soft bg-transparent text-center flex flex-col shadow-lg rounded-lg overflow-hidden">
                       <button
                         onClick={() => navigate("/profile")}
                         type="button"
-                        className="hover:bg-dark-hard hover:text-white px-4 py-2 text-white lg:text-dark-soft"
+                        className="hover:bg-dark-hard hover:text-white px-4 py-2 text-dark-soft"
                       >
                         Profile Page
                       </button>
                       <button
                         onClick={logoutHandler}
                         type="button"
-                        className="hover:bg-dark-hard hover:text-white px-4 py-2 text-white lg:text-dark-soft"
+                        className="hover:bg-dark-hard hover:text-white px-4 py-2 text-dark-soft"
                       >
                         Logout
                       </button>

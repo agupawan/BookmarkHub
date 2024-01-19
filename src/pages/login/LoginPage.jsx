@@ -19,6 +19,7 @@ const LoginPage = () => {
       return login({ email, password });
     },
     onSuccess: (data) => {
+      console.log(data);
       dispatch(userActions.setUserInfo(data));
       localStorage.setItem("account", JSON.stringify(data));
      toast.success("Successfully Logged in!");
@@ -60,7 +61,7 @@ const LoginPage = () => {
           <h1 className="font-roboto text-2xl font-bold text-center text-dark-hard mb-8">
             Login
           </h1>
-          <form onSubmit={handleSubmit(submitHandler)}>
+          <form autoComplete="off" onSubmit={handleSubmit(submitHandler)}>
             <div className="flex flex-col mb-6 w-full">
               <label
                 htmlFor="email"

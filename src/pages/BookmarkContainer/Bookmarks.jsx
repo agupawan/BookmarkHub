@@ -6,7 +6,7 @@ import { images } from "../../constants";
 import SuggestedBookmarks from "./SuggestedBookmarks";
 import { useParams } from 'react-router';
 import { useGetBookmarksQuery } from "../../services/jsonServerApi";
-
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -44,6 +44,12 @@ const Bookmarks = () => {
 
   
     const params = useParams();
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+  
+    // Accessing a specific query parameter
+    const myParam = queryParams.get('category');
   
 
     const breadCrumbsData = [
@@ -51,9 +57,8 @@ const Bookmarks = () => {
       { name: "Blog", link: `bookmark/${params.id}` },
     ];
 
-    const { isLoading, isError, isSuccess, data, error} = useGetBookmarksQuery(params.id);
-    const postsData = data?.bookmarks;
-    
+    const { isLoading, isError, isSuccess, data, error} = useGetBookmarksQuery(myParam);
+    // const postsData = data?.bookmarks;
     
 
   
@@ -63,7 +68,7 @@ const Bookmarks = () => {
         <article className="flex-1">
           <BreadCrumbs data={breadCrumbsData} />
           <h1 className="text-xl font-medium font-roboto mt-4 p-3 text-dark-hard md:text-[26px]">
-            Help children get better education
+            {myParam}
           </h1>
           <img
             className="rounded-xl w-full"
@@ -72,14 +77,16 @@ const Bookmarks = () => {
           />
           {isSuccess && < SuggestedBookmarks
           header="Your Bookmarks"
-          posts={postsData}
-          className="mt-8 lg:mt-0 lg:max-w-xs"
+          posts={data}
+          category={myParam}
+          className="mt-8 lg:mt-0 lg:max-w-2xl"
         />}
         </article>
         {isSuccess &&
         <SuggestedBookmarks
           header="Latest Bookmarks"
-          posts={postsData}
+          posts={data}
+          category={myParam}
           className="mt-8 lg:mt-0 lg:max-w-xs"
         />}
       </section>
