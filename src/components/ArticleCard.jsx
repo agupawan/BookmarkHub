@@ -11,16 +11,16 @@ const ArticleCard = ({ className, category }) => {
     >
       <Link to={`bookmark?category=${category.name}`}>
       <img
-        src={category.imageUrl}
+        src={category.photo}
         alt="title"
         className="w-full object-cover object-center h-auto md:h-52 lg:h-48 xl:h-60"
       />
       <div className="p-5 bg-slate-800">
-        <h2 className="font-roboto  font-bold text-xl text-white md:text-xl lg:text-[24px]">
+        <h2 className="font-roboto  font-bold text-xl text-white md:text-xl lg:text-2xl">
          {category.name}
         </h2>
-        <p className="text-dark-light mt-3 text-sm md:text-lg">
-         {category.desc}
+        <p className="text-slate-300 mt-3 text-sm">
+         {category.description}
         </p>
         </div>
       </Link>

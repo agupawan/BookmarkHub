@@ -20,6 +20,7 @@ export const signup = async ({ name, email, password, confirmPassword, phone }) 
 
 export const login = async ({ email, password }) => {
   try {
+
     const { data } = await axios.post("http://localhost:5000/api/v1/user/login", {
       email,
       password,
@@ -93,9 +94,25 @@ export const updateProfilePicture = async ({ token, formData }) => {
   }
 };
 
+export const forgotPassword = async ({ email }) => {
+  try {
+    const { data } = await axios.post("http://localhost:5000/api/v1/user/log", {
+      email
+    });
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message)
+      throw new Error(error.response.data.message);
+    throw new Error(error.message);
+  }
+};
+
+
 export const addBookmark = async ({ bookmarkName,link,category,bookmarkType }) => {
   try {
-    const { data } = await axios.post("http://localhost:2800/bookmarks", {
+
+
+    const { data } = await axios.post("http://localhost:5000/api/v1/category/bookmark/new", {
       bookmarkName,
       link,
       category,

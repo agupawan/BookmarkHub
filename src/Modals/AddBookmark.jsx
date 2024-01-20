@@ -6,9 +6,15 @@ import toast from "react-hot-toast";
 
 import { IoClose } from "react-icons/io5";
 import { addBookmark } from "../services/index/users";
+import { useGetCategoriesQuery } from "../services/jsonServerApi";
 
 const AddBookmark = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+
+  const { isError, isSuccess, data, error } = useGetCategoriesQuery();
+
+  
+  
 
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ bookmarkName, link, category, bookmarkType }) => {
@@ -133,28 +139,32 @@ const AddBookmark = ({ isOpen, onClose }) => {
                           Link
                         </label>
                       </div>
-                      <div className="relative">
-                        <input
+                      <div className="relative mx-auto">
+                        <select
                           id="category"
-                          type="text"
+                          name="category"
+                          
+                          
                           {...register("category", {
-                            minLength: {
-                              value: 1,
-                              message:
-                                "Bookmark category length must be at least 1 character",
-                            },
                             required: {
                               value: true,
                               message: "Bookmark category is required",
                             },
                           })}
-                          placeholder="Enter Bookmark category"
-                          className={`peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600 ${
-                            errors.category
+                          className={`peer placeholder-transparent h-10 text-sm w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600 ${
+                            errors.bookmarkType
                               ? "border-red-500"
                               : "border-[#c3cad9]"
                           }`}
-                        />
+                        >
+                          
+                          {data?.map((item, index) => (
+                            <option key={index} value={item.name}>
+                              {item.name}
+                            </option>
+                          ))}
+                          
+                        </select>
                         {errors.category?.message && (
                           <p className="text-red-500 text-xs mt-1">
                             {errors.category?.message}
@@ -177,7 +187,7 @@ const AddBookmark = ({ isOpen, onClose }) => {
                               message: "Bookmark type is required",
                             },
                           })}
-                          className={`peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600 ${
+                          className={`peer placeholder-transparent text-sm h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600 ${
                             errors.bookmarkType
                               ? "border-red-500"
                               : "border-[#c3cad9]"
