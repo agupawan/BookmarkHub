@@ -46,21 +46,21 @@ const AddBookmark = ({ isOpen, onClose }) => {
     mode: "onChange",
   });
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    if (!userState.userInfo) {
-      navigate("/login");
-    }
-  }, [navigate, userState.userInfo]);
+  //   if (!userState.userInfo) {
+  //     navigate("/login");
+  //   }
+  // }, [navigate, userState.userInfo]);
 
   const submitHandler = (data) => {
     const { bookmarkName, link, category, bookmarkType } = data;
     mutate({ bookmarkName, link, category, bookmarkType });
   };
 
-  if(!userState.userInfo){
-    return <></>
-  }
+  // if(!userState.userInfo){
+  //   return <></>
+  // }
   return (
 
     <>
