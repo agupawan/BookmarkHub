@@ -1,4 +1,4 @@
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
@@ -13,15 +13,14 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route index path="/" element={<HomePage/>} />
-        <Route path="/bookmark" element={<Bookmarks/>} />
-        <Route path="/register" element={<RegisterPage/>} />
-        <Route path="/login" element={<LoginPage/>} />
-        <Route path="/profile" element={<ProfilePage/>} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage/>} />
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/bookmark" element={<Bookmarks />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
       <Toaster />
-      
     </div>
   );
 }

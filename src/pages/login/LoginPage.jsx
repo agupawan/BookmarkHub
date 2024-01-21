@@ -20,8 +20,9 @@ const LoginPage = () => {
     },
     onSuccess: (data) => {
       console.log(data);
-      dispatch(userActions.setUserInfo(data));
-      localStorage.setItem("accessToken", JSON.stringify(data.data._id));
+
+      dispatch(userActions.setUserInfo(data.data));
+      localStorage.setItem("account", JSON.stringify(data.data));
      toast.success("Successfully Logged in!");
     },
     onError: (error) => {

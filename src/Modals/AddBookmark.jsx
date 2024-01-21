@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import { IoClose } from "react-icons/io5";
@@ -10,7 +11,7 @@ import { useGetCategoriesQuery } from "../services/jsonServerApi";
 
 const AddBookmark = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
-
+  const userState = useSelector((state) => state.user);
   const { isError, isSuccess, data, error } = useGetCategoriesQuery();
 
   
@@ -18,7 +19,8 @@ const AddBookmark = ({ isOpen, onClose }) => {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ bookmarkName, link, category, bookmarkType }) => {
-      return addBookmark({ bookmarkName, link, category, bookmarkType });
+      
+      return addBookmark({ bookmarkName, link, category, bookmarkType, token: userState.userInfo.accessToken });
     },
     onSuccess: (data) => {
       console.log(data);
@@ -44,12 +46,23 @@ const AddBookmark = ({ isOpen, onClose }) => {
     mode: "onChange",
   });
 
+  useEffect(() => {
+    
+    if (!userState.userInfo) {
+      navigate("/login");
+    }
+  }, [navigate, userState.userInfo]);
+
   const submitHandler = (data) => {
     const { bookmarkName, link, category, bookmarkType } = data;
     mutate({ bookmarkName, link, category, bookmarkType });
   };
 
+  if(!userState.userInfo){
+    return <></>
+  }
   return (
+
     <>
       <div
         className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${

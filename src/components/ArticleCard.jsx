@@ -7,7 +7,7 @@ const ArticleCard = ({ className, category }) => {
   return (
     
     <div
-      className={`rounded-xl overflow-hidden shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] ${className}`}
+      className={`rounded-xl overflow-hidden bg-slate-800 shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] ${className}`}
     >
       <Link to={`bookmark?category=${category.name}`}>
       <img

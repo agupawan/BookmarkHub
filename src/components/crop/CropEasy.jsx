@@ -20,7 +20,7 @@ const CropEasy = ({ photo, setOpenCrop }) => {
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ token, formData }) => {
       return updateProfilePicture({
-        token: token,
+        token: userState.userInfo.accessToken,
         formData: formData,
       });
     },

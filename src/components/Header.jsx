@@ -90,7 +90,8 @@ const Header = () => {
         
         </div>
       </header>
-      <AddBookmark isOpen={addBookmarkModal} onClose={() => setAddBookmarkModal(false)} />
+      {addBookmarkModal && <AddBookmark isOpen={addBookmarkModal} onClose={() => setAddBookmarkModal(false)} />}
+      
     </section>
   );
 };

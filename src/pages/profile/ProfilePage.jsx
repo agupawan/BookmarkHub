@@ -21,23 +21,28 @@ const ProfilePage = () => {
     isLoading: profileIsLoading,
     error: profileError,
   } = useQuery({
-    queryFn: () => {
-      return getUserProfile({ token: userState.userInfo.id });
+    queryFn: async () => {
+      return await getUserProfile({ token: userState.userInfo.accessToken });
     },
     queryKey: ["profile"],
   });
 
+  
+
   const { mutate, isLoading: updateProfileIsLoading } = useMutation({
-    mutationFn: ({ name, email, password }) => {
+    
+    mutationFn: ({ name, phone, bio }) => {
       return updateProfile({
-        token: userState.userInfo.id,
-        userData: { name, email, password },
+        token: userState.userInfo.accessToken,
+        userData: { name, phone, bio }
       });
     },
     onSuccess: (data) => {
-        console.log(data);
-      dispatch(userActions.setUserInfo(data));
-      localStorage.setItem("account", JSON.stringify(data));
+      console.log(data);
+      const temp = data.data;
+      const token = {accessToken : userState.userInfo.accessToken};
+      dispatch(userActions.setUserInfo({...temp,...token}));
+      localStorage.setItem("account", JSON.stringify({...temp,...token}));
       queryClient.invalidateQueries(["profile"]);
       toast.success("Profile is updated");
     },
@@ -61,18 +66,21 @@ const ProfilePage = () => {
     defaultValues: {
       name: "",
       email: "",
-      password: "",
+      phone: "",
+      bio: ""
     },
     values: {
-      name: profileIsLoading ? "" : profileData.name,
-      email: profileIsLoading ? "" : profileData.email,
+      name: profileIsLoading ? "" : profileData?.data.name,
+      email: profileIsLoading ? "" : profileData?.data.email,
+      phone: profileIsLoading ? "" : profileData?.data.phone,
+      bio: profileIsLoading ? "" : profileData?.data.bio
     },
     mode: "onChange",
   });
 
   const submitHandler = (data) => {
-    const { name, email, password } = data;
-    mutate({ name, email, password });
+    const { name, phone,bio } = data;
+    mutate({ name, phone,bio });
   };
 
   return (
@@ -101,7 +109,7 @@ const ProfilePage = () => {
                     message: "Name is required",
                   },
                 })}
-                placeholder="Enter name"
+                placeholder="Name"
                 className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
                   errors.name ? "border-red-500" : "border-[#c3cad9]"
                 }`}
@@ -122,6 +130,7 @@ const ProfilePage = () => {
               <input
                 type="email"
                 id="email"
+                disabled
                 {...register("email", {
                   pattern: {
                     value:
@@ -133,8 +142,8 @@ const ProfilePage = () => {
                     message: "Email is required",
                   },
                 })}
-                placeholder="Enter email"
-                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                placeholder="Email"
+                className={`placeholder:text-[#959ead] text-dark-hard bg-slate-300 mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
                   errors.email ? "border-red-500" : "border-[#c3cad9]"
                 }`}
               />
@@ -146,23 +155,45 @@ const ProfilePage = () => {
             </div>
             <div className="flex flex-col mb-6 w-full">
               <label
-                htmlFor="password"
+                htmlFor="phone"
                 className="text-[#5a7184] font-semibold block"
               >
-                New Password (optional)
+                Contact
               </label>
               <input
-                type="password"
-                id="password"
-                {...register("password")}
-                placeholder="Enter new password"
+                type="text"
+                id="phone"
+                {...register("phone")}
+                placeholder="Mobile number"
                 className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
-                  errors.password ? "border-red-500" : "border-[#c3cad9]"
+                  errors.phone ? "border-red-500" : "border-[#c3cad9]"
                 }`}
               />
-              {errors.password?.message && (
+              {errors.phone?.message && (
                 <p className="text-red-500 text-xs mt-1">
-                  {errors.password?.message}
+                  {errors.phone?.message}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col mb-6 w-full">
+              <label
+                htmlFor="bio"
+                className="text-[#5a7184] font-semibold block"
+              >
+                Bio
+              </label>
+              <input
+                type="text"
+                id="bio"
+                {...register("bio")}
+                placeholder="Bio"
+                className={`placeholder:text-[#959ead] text-dark-hard mt-3 rounded-lg px-5 py-4 font-semibold block outline-none border ${
+                  errors.bio ? "border-red-500" : "border-[#c3cad9]"
+                }`}
+              />
+              {errors.bio?.message && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.bio?.message}
                 </p>
               )}
             </div>

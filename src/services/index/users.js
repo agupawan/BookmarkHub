@@ -41,7 +41,7 @@ export const getUserProfile = async ({ token }) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:2800/logins/${token}`, config);
+    const { data } = await axios.get(`http://localhost:5000/api/v1/user/info`, config);
     return data;
   } catch (error) {
     if (error.response && error.response.data.message)
@@ -58,8 +58,8 @@ export const updateProfile = async ({ token, userData }) => {
       },
     };
 
-    const { data } = await axios.put(
-      `http://localhost:2800/logins/${token}`,
+    const { data } = await axios.patch(
+      `http://localhost:5000/api/v1/user/updateprofile`,
       userData,
       config
     );
@@ -81,8 +81,8 @@ export const updateProfilePicture = async ({ token, formData }) => {
       },
     };
 
-    const { data } = await axios.put(
-      `http://localhost:2800/logins/${token}`,
+    const { data } = await axios.patch(
+      `http://localhost:5000/api/v1/user/updateprofilepicture`,
       formData,
       config
     );
@@ -108,16 +108,29 @@ export const forgotPassword = async ({ email }) => {
 };
 
 
-export const addBookmark = async ({ bookmarkName,link,category,bookmarkType }) => {
+export const addBookmark = async ({ bookmarkName,link,category,bookmarkType, token }) => {
   try {
 
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
 
-    const { data } = await axios.post("http://localhost:5000/api/v1/category/bookmark/new", {
+    const data = await axios.post('http://localhost:5000/api/v1/category/bookmark/new', {
       bookmarkName,
       link,
       category,
       bookmarkType
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
     });
+
+
     return data;
   } catch (error) {
     if (error.response && error.response.data.message)
